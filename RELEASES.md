@@ -90,6 +90,7 @@ Released on TBD (UTC).
 - Fixed Kraken spot and futures wallets retaining balances reported at zero (#5186), thanks @zhaow-de
 - Fixed Kraken futures margin currencies, aggregation, and maintenance requirements (#5199), thanks @zhaow-de
 - Fixed Kraken futures reads silently omitting unresolved live orders and positions (#5217), thanks @zhaow-de
+- Fixed Polymarket bounded restarts marking cached closed orders as incomplete
 - Fixed Polymarket bounded restarts omitting confirmed partial fills from resting orders
 - Fixed Polymarket recovered BUY overfills being rejected instead of raising order quantity
 

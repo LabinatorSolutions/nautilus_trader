@@ -1580,6 +1580,17 @@ preserves their history. The cache's in-session purge methods skip open orders a
 `CacheConfig.flush_on_start = true` clears all of the trader's cached state, including data for other adapters.
 :::
 
+A bounded mass status is complete only when no in-scope historical fill is unmapped, no in-window
+confirmed maker trade lacks an owned maker order, no in-scope confirmed trade lacks an event time,
+and every fill is backed by an order report or an eligible cached order. An eligible cached order
+has the fill's account and instrument and carries the fill's venue order ID. An earlier venue order
+ID from an [order modification](#order-modification) counts only when that fill is already on the
+cached order. When `instrument_config.load_ids` is non-empty, the instrument must also be in the
+list. A cached order does not offset unmapped, unowned maker, or untimestamped trades. When the
+window is incomplete, the adapter logs a warning that lists each failing condition before the engine
+logs its incomplete-report warning. The adapter does not emit another order report for a cached
+closed order, so reconciliation does not apply that order's quantity or commission again.
+
 Runtime order checks fetch confirmed trade history when the venue's matched quantity exceeds the
 local order's applied fill quantity. Unpaired fill reports retain the normal fill-only path.
 
